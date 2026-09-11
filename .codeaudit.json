@@ -1,0 +1,40 @@
+{
+  "files": {
+    "README.md": {
+      "countable_total": 92,
+      "excluded": {},
+      "line_count": 124,
+      "notes": {},
+      "reviewed": {}
+    },
+    "pyproject.toml": {
+      "countable_total": 33,
+      "excluded": {},
+      "line_count": 38,
+      "notes": {},
+      "reviewed": {}
+    },
+    "src/codeaudit/__init__.py": {
+      "countable_total": 2,
+      "excluded": {},
+      "line_count": 4,
+      "notes": {},
+      "reviewed": {}
+    },
+    "src/codeaudit/__main__.py": {
+      "countable_total": 3,
+      "excluded": {},
+      "line_count": 5,
+      "notes": {},
+      "reviewed": {}
+    },
+    "src/codeaudit/cli.py": {
+      "countable_total": 700,
+      "excluded": {},
+      "line_count": 876,
+      "notes": {},
+      "reviewed": {}
+    }
+  },
+  "root": "/Users/jakeumms/aicodeaudit"
+}
