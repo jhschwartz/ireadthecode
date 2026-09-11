@@ -1,9 +1,9 @@
 {
   "files": {
     "README.md": {
-      "countable_total": 92,
+      "countable_total": 103,
       "excluded": {},
-      "line_count": 124,
+      "line_count": 137,
       "notes": {},
       "reviewed": {}
     },
@@ -29,12 +29,18 @@
       "reviewed": {}
     },
     "src/codeaudit/cli.py": {
-      "countable_total": 700,
+      "countable_total": 768,
       "excluded": {},
-      "line_count": 876,
+      "line_count": 952,
       "notes": {},
       "reviewed": {}
     }
   },
-  "root": "/Users/jakeumms/aicodeaudit"
+  "root": "/Users/jakeumms/aicodeaudit",
+  "summary": {
+    "coverage_pct": 0.0,
+    "excluded": 0,
+    "reviewed": 0,
+    "total": 909
+  }
 }

@@ -92,9 +92,22 @@ At each chunk:
 ### README badge
 
 ```bash
-codeaudit badge                          # print a markdown badge line
+codeaudit badge                            # print a markdown badge line
 codeaudit badge --update-readme README.md  # insert/update it in place
+codeaudit badge --dynamic --update-readme README.md  # see below
 ```
+
+By default the badge bakes the current percentage into a static
+`img.shields.io/badge/...` URL — accurate as of the last time you ran the
+command, but it needs re-running (and a new commit) after every review
+session to stay current.
+
+`--dynamic` instead points a [shields.io dynamic JSON
+badge](https://shields.io/badges/dynamic-json-badge) straight at this repo's
+`.codeaudit.json` on GitHub (`$.summary.coverage_pct`), so the number on the
+badge is always whatever's currently committed — no re-run needed after a
+review session, just `git push`. It requires a GitHub `origin` remote (auto-detected via `git remote get-url origin`); the badge *color* is still
+fixed at whatever it was when you last ran `--dynamic`.
 
 ## Safety model
 

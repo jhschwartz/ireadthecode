@@ -75,7 +75,9 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
+from urllib.parse import quote
 
 MANIFEST_NAME = ".codeaudit.json"
 
@@ -172,6 +174,7 @@ def prepare_for_save(manifest):
     out = {"root": manifest.get("root"), "files": {}}
     for rel, entry in manifest.get("files", {}).items():
         out["files"][rel] = {k: v for k, v in entry.items() if not k.startswith("_")}
+    out["summary"] = _overall_stats(manifest)
     return out
 
 
@@ -342,6 +345,26 @@ def _audit_stats(entry):
 def _coverage(entry):
     total, reviewed, _ = _audit_stats(entry)
     return 1.0 if total == 0 else reviewed / total
+
+
+def _overall_stats(manifest):
+    """Aggregate _audit_stats() across every tracked file. Used to stamp a
+    top-level "summary" object into the saved manifest, so external tools
+    (e.g. a shields.io dynamic badge) can read overall coverage straight out
+    of .codeaudit.json without re-deriving it."""
+    total = reviewed = excluded = 0
+    for entry in manifest.get("files", {}).values():
+        a, r, e = _audit_stats(entry)
+        total += a
+        reviewed += r
+        excluded += e
+    pct = 100.0 if total == 0 else (reviewed / total) * 100
+    return {
+        "coverage_pct": round(pct, 2),
+        "reviewed": reviewed,
+        "total": total,
+        "excluded": excluded,
+    }
 
 
 # ------------------------------------------------------------- commands --
@@ -620,6 +643,37 @@ def _badge_color(pct):
     return "red"
 
 
+_GITHUB_REMOTE_RE = re.compile(
+    r"^(?:git@github\.com:|https://github\.com/)(?P<owner>[^/]+)/(?P<repo>.+?)(?:\.git)?$"
+)
+
+
+def _git_raw_base(root, path_in_repo):
+    """Best-effort: derive a raw.githubusercontent.com URL for a file in this
+    repo, from the 'origin' remote and current branch. Returns None if it
+    can't be determined (no git, no remote, not a github.com remote)."""
+    try:
+        remote = subprocess.run(
+            ["git", "-C", root, "remote", "get-url", "origin"],
+            capture_output=True, text=True, timeout=5,
+        )
+        branch = subprocess.run(
+            ["git", "-C", root, "rev-parse", "--abbrev-ref", "HEAD"],
+            capture_output=True, text=True, timeout=5,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if remote.returncode != 0 or branch.returncode != 0:
+        return None
+
+    m = _GITHUB_REMOTE_RE.match(remote.stdout.strip())
+    ref = branch.stdout.strip()
+    if not m or not ref:
+        return None
+    return (f"https://raw.githubusercontent.com/{m.group('owner')}/"
+            f"{m.group('repo')}/{ref}/{path_in_repo}")
+
+
 def cmd_badge(args):
     root = find_root(args.db)
     manifest = load_manifest(root)
@@ -635,12 +689,29 @@ def cmd_badge(args):
 
     label = args.label.replace(" ", "%20")
     color = _badge_color(pct)
-    badge_line = (f"![{args.label}](https://img.shields.io/badge/"
-                  f"{label}-{round(pct)}%25-{color})")
+
+    if args.dynamic:
+        raw_url = _git_raw_base(root, MANIFEST_NAME)
+        if raw_url is None:
+            print("Couldn't determine a GitHub raw URL for this repo (no 'origin' "
+                  "remote configured, or it's not a github.com remote). Push this "
+                  "repo to GitHub and add an 'origin' remote first, or omit "
+                  "--dynamic for a static badge.", file=sys.stderr)
+            sys.exit(1)
+        badge_line = (
+            f"![{args.label}](https://img.shields.io/badge/dynamic/json"
+            f"?url={quote(raw_url, safe='')}"
+            f"&query={quote('$.summary.coverage_pct', safe='')}"
+            f"&suffix=%25&label={label}&color={color})"
+        )
+    else:
+        badge_line = (f"![{args.label}](https://img.shields.io/badge/"
+                      f"{label}-{round(pct)}%25-{color})")
 
     if args.update_readme:
         _update_readme_badge(args.update_readme, badge_line)
-        print(f"Updated badge in {args.update_readme}: {round(pct)}% ({color}).")
+        mode = "dynamic (reads .codeaudit.json live from GitHub)" if args.dynamic else "static"
+        print(f"Updated {mode} badge in {args.update_readme}: {round(pct)}% ({color}).")
     else:
         print(badge_line)
 
@@ -860,6 +931,11 @@ def build_parser():
     s = sub.add_parser("badge", help="print (or write into a README) a coverage badge")
     s.add_argument("--label", default="audit coverage")
     s.add_argument("--update-readme", metavar="README_PATH")
+    s.add_argument("--dynamic", action="store_true",
+                    help="reference .codeaudit.json live via a shields.io dynamic JSON "
+                         "badge instead of baking the percentage into the URL (requires "
+                         "a GitHub 'origin' remote; the percentage stays live on every "
+                         "page load, the color reflects the value at generation time)")
     s.set_defaults(func=cmd_badge)
 
     s = sub.add_parser("review", help="stepwise, chunk-by-chunk interactive review")
