@@ -39,6 +39,19 @@ Excluding human-written code from the audit
 Excluded lines never count toward the audit denominator, so coverage reflects
 "percent of code that actually needs review, that has been reviewed."
 
+Reviewer attribution (for teams)
+---------------------------------
+`mark` and `review` record who reviewed each line, alongside its content
+hash:
+  python3 codeaudit.py mark path/to/file.py 10 40 --reviewer "Jane Doe <jane@x.com>"
+  python3 codeaudit.py review --reviewer "Jane Doe <jane@x.com>"
+
+Identity resolves, in order: --reviewer flag, CODEAUDIT_REVIEWER env var,
+`git config user.name`/`user.email`, then $USER/$USERNAME. Attribution
+lives inside the same mark as the content hash, so it migrates with the
+mark under reconciliation instead of a separate line-keyed table that
+could point at the wrong line after unrelated edits shift things around.
+
 Stepwise interactive review
 ----------------------------
   python3 codeaudit.py review                     # walk every file, chunk by chunk
@@ -66,7 +79,8 @@ excluded) against current file content, content-hash based, not just
 line-number based. If a marked line's content changed and no identical
 line is found nearby, the mark is DROPPED — coverage can only go down on
 an edit, never falsely stay up, and exclusions never silently survive a
-change to code they were meant to exempt.
+change to code they were meant to exempt. Reviewer attribution rides along
+with a mark through this same migration.
 """
 
 import argparse
@@ -77,6 +91,7 @@ import os
 import re
 import subprocess
 import sys
+from datetime import datetime, timezone
 from urllib.parse import quote
 
 MANIFEST_NAME = ".codeaudit.json"
@@ -208,16 +223,19 @@ def walk_source_files(root):
 # --------------------------------------------------------- reconciliation --
 
 def _reconcile_mark_dict(old_marks, hashes):
-    """Shared logic for migrating/dropping a {line_no_str: hash} dict
-    (used for both 'reviewed' and 'excluded') against current file hashes.
-    Returns (new_marks, dropped_count)."""
+    """Shared logic for migrating/dropping a {line_no_str: value} dict (used
+    for both 'reviewed' and 'excluded') against current file hashes. `value`
+    is either a bare hash string, or a dict with a "hash" key plus extra
+    metadata (e.g. reviewer attribution) that travels with the mark when it
+    migrates to a new line number. Returns (new_marks, dropped_count)."""
     new_marks = {}
     dropped = 0
-    for lno_str, old_h in old_marks.items():
+    for lno_str, val in old_marks.items():
+        old_h = val["hash"] if isinstance(val, dict) else val
         lno = int(lno_str)
         idx = lno - 1
         if 0 <= idx < len(hashes) and hashes[idx] == old_h:
-            new_marks[lno_str] = old_h
+            new_marks[lno_str] = val
             continue
         found = None
         for delta in range(1, 21):
@@ -228,7 +246,7 @@ def _reconcile_mark_dict(old_marks, hashes):
             if found:
                 break
         if found:
-            new_marks[str(found)] = old_h
+            new_marks[str(found)] = val
         else:
             dropped += 1
     return new_marks, dropped
@@ -236,6 +254,12 @@ def _reconcile_mark_dict(old_marks, hashes):
 
 def whole_file_hash(hashes):
     return line_hash("\n".join(hashes))
+
+
+def _mark_by(value):
+    """Reviewer attribution out of a 'reviewed' entry value, or None for a
+    bare hash string (unattributed / pre-attribution mark)."""
+    return value.get("by") if isinstance(value, dict) else None
 
 
 def reconcile(root, manifest, quiet=False):
@@ -451,16 +475,19 @@ def cmd_show(args):
     countable = entry.get("_countable", [])
     for i, text in enumerate(lines):
         lno = i + 1
+        by = None
         if i < len(excluded_lines) and excluded_lines[i]:
             mark = "E"
         elif str(lno) in reviewed:
             mark = "R"
+            by = _mark_by(reviewed[str(lno)])
         elif i < len(countable) and countable[i]:
             mark = " "
         else:
             mark = "."
-        note = f"   # {notes[str(lno)]}" if str(lno) in notes else ""
-        print(f"{lno:5} [{mark}] {text}{note}")
+        suffix = f"   (reviewed by {by})" if by else ""
+        suffix += f"   # {notes[str(lno)]}" if str(lno) in notes else ""
+        print(f"{lno:5} [{mark}] {text}{suffix}")
 
     save_manifest(root, manifest)
 
@@ -471,12 +498,58 @@ def _resolve_range(start, end):
     return (start, end) if start <= end else (end, start)
 
 
-def _apply_mark(entry, hashes, start, end, key):
+def _now_iso():
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def _git_identity(root):
+    """Best-effort 'Name <email>' from git config, scoped to this repo so a
+    repo-local override (if any) wins. Returns None if git or the identity
+    isn't available."""
+    try:
+        name = subprocess.run(["git", "-C", root, "config", "user.name"],
+                               capture_output=True, text=True, timeout=5)
+        email = subprocess.run(["git", "-C", root, "config", "user.email"],
+                                capture_output=True, text=True, timeout=5)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    name = name.stdout.strip() if name.returncode == 0 else ""
+    email = email.stdout.strip() if email.returncode == 0 else ""
+    if name and email:
+        return f"{name} <{email}>"
+    return name or email or None
+
+
+def _resolve_reviewer(root, args):
+    """Reviewer identity for a mark: --reviewer flag > CODEAUDIT_REVIEWER env
+    var > git config (user.name/email) > $USER/$USERNAME > 'unknown'."""
+    explicit = getattr(args, "reviewer", None)
+    if explicit:
+        return explicit
+    env = os.environ.get("CODEAUDIT_REVIEWER")
+    if env:
+        return env
+    identity = _git_identity(root)
+    if identity:
+        return identity
+    return os.environ.get("USER") or os.environ.get("USERNAME") or "unknown"
+
+
+def _apply_mark(entry, hashes, start, end, key, by=None):
+    """Mark lines [start, end] under `key` ('reviewed' or 'excluded'). When
+    `by` is given, the mark stores {"hash", "by", "at"} instead of a bare
+    hash string, so reviewer attribution migrates along with the mark under
+    reconciliation (see _reconcile_mark_dict)."""
     changed = 0
     for lno in range(start, end + 1):
         idx = lno - 1
         if 0 <= idx < len(hashes):
-            entry.setdefault(key, {})[str(lno)] = hashes[idx]
+            if by is not None:
+                entry.setdefault(key, {})[str(lno)] = {
+                    "hash": hashes[idx], "by": by, "at": _now_iso(),
+                }
+            else:
+                entry.setdefault(key, {})[str(lno)] = hashes[idx]
             changed += 1
     return changed
 
@@ -505,10 +578,14 @@ def cmd_mark(args, mark=True):
     rel, entry = _get_tracked_entry(root, manifest, args.file)
     start, end = _resolve_range(args.start, args.end)
     hashes = entry["_hashes"]
-    n = _apply_mark(entry, hashes, start, end, "reviewed") if mark \
-        else _apply_unmark(entry, start, end, "reviewed")
+    if mark:
+        by = _resolve_reviewer(root, args)
+        n = _apply_mark(entry, hashes, start, end, "reviewed", by=by)
+    else:
+        n = _apply_unmark(entry, start, end, "reviewed")
     save_manifest(root, manifest)
-    print(f"{'Marked' if mark else 'Unmarked'} {rel}:{start}-{end} ({n} lines).")
+    suffix = f" by {by}." if mark else "."
+    print(f"{'Marked' if mark else 'Unmarked'} {rel}:{start}-{end} ({n} lines){suffix}")
 
 
 def cmd_exclude_range(args, exclude=True):
@@ -754,6 +831,7 @@ def cmd_review(args):
     root = find_root(args.db)
     manifest = load_manifest(root)
     reconcile(root, manifest, quiet=True)
+    by = _resolve_reviewer(root, args)
 
     if args.file:
         targets = [os.path.relpath(os.path.abspath(args.file), root)]
@@ -764,8 +842,8 @@ def cmd_review(args):
         targets = sorted(manifest["files"].keys())
 
     chunk_size = max(1, args.chunk_size)
-    print(f"Stepwise review. {len(targets)} file(s), chunk size {chunk_size}. "
-          f"Type ? for help, q to quit.\n")
+    print(f"Stepwise review. {len(targets)} file(s), chunk size {chunk_size}, "
+          f"reviewing as {by}. Type ? for help, q to quit.\n")
 
     quit_all = False
     for rel in targets:
@@ -796,15 +874,18 @@ def cmd_review(args):
             notes = entry.get("notes", {})
             for j in range(i, end):
                 lno = j + 1
+                who = None
                 if excluded_lines[j]:
                     mark = "E"
                 elif str(lno) in reviewed:
                     mark = "R"
+                    who = _mark_by(reviewed[str(lno)])
                 elif countable[j]:
                     mark = " "
                 else:
                     mark = "."
-                suffix = f"   # {notes[str(lno)]}" if str(lno) in notes else ""
+                suffix = f"   (by {who})" if who else ""
+                suffix += f"   # {notes[str(lno)]}" if str(lno) in notes else ""
                 print(f"{lno:5} [{mark}] {text_lines[j]}{suffix}")
 
             while True:
@@ -815,7 +896,7 @@ def cmd_review(args):
                 low = raw.lower()
 
                 if raw == "" or low == "r":
-                    _apply_mark(entry, hashes, i + 1, end, "reviewed")
+                    _apply_mark(entry, hashes, i + 1, end, "reviewed", by=by)
                     break
                 if low == "s":
                     break
@@ -836,7 +917,7 @@ def cmd_review(args):
                         print("usage: r|x <start> [end]")
                         continue
                     s0, e0 = _resolve_range(a0, b0)
-                    _apply_mark(entry, hashes, s0, e0, key)
+                    _apply_mark(entry, hashes, s0, e0, key, by=(by if key == "reviewed" else None))
                     if key == "excluded":
                         entry["_excluded_lines"] = [
                             True if entry.get("excluded_file") else (str(k + 1) in entry["excluded"])
@@ -897,6 +978,8 @@ def build_parser():
 
     s = sub.add_parser("mark", help="mark a line range as reviewed")
     s.add_argument("file"); s.add_argument("start", type=int); s.add_argument("end", type=int, nargs="?")
+    s.add_argument("--reviewer", help="reviewer identity to attribute this mark to "
+                                       "(default: git config user.name/email, then $USER)")
     s.set_defaults(func=lambda a: cmd_mark(a, mark=True))
 
     s = sub.add_parser("unmark", help="unmark a line range")
@@ -941,6 +1024,9 @@ def build_parser():
     s = sub.add_parser("review", help="stepwise, chunk-by-chunk interactive review")
     s.add_argument("--file", help="restrict to one file (default: whole repo, path order)")
     s.add_argument("--chunk-size", type=int, default=20)
+    s.add_argument("--reviewer", help="reviewer identity to attribute marks to for this "
+                                       "session (default: git config user.name/email, "
+                                       "then $USER)")
     s.set_defaults(func=cmd_review)
 
     return p

@@ -51,6 +51,9 @@ codeaudit unmark path/to/file.py 10 40 # undo that
 codeaudit note path/to/file.py 22 "double-check this SQL"
 ```
 
+`mark` and `review` record *who* reviewed each line, for team use — see
+[Reviewer attribution](#reviewer-attribution) below.
+
 ### Excluding human-written code from the audit
 
 Excluded lines never count toward the audit denominator, so coverage reflects
@@ -92,6 +95,22 @@ At each chunk:
 | `n <line> <text>` | attach a note to a line, stay on this chunk |
 | `q` | save and quit |
 
+### Reviewer attribution
+
+For teams: every `mark` and `review` records who did the reviewing, alongside
+the line's content hash, so `show` and `review` display e.g. `(reviewed by
+Jane Doe <jane@example.com>)`. Identity resolves in this order:
+
+1. `--reviewer "Name <email>"` on `mark` or `review`
+2. the `CODEAUDIT_REVIEWER` environment variable
+3. `git config user.name` / `user.email` (scoped to this repo)
+4. `$USER` / `$USERNAME`, or `unknown` as a last resort
+
+Attribution is stored *inside* the same mark as the content hash (not a
+separate line-number-keyed table), so it migrates exactly like the review
+status itself under reconciliation — see Safety model below. Marks made
+before this feature existed just show as reviewed, unattributed.
+
 ### README badge
 
 ```bash
@@ -124,6 +143,10 @@ mark is **dropped**. Practically, this means:
 
 - Coverage can only go *down* on an edit, never falsely stay up. Editing a
   reviewed line un-reviews it; you have to look at it again.
+- Reviewer attribution rides along with the mark: if unrelated lines shift
+  elsewhere in the file, a reviewed line's "reviewed by" note follows it to
+  its new line number the same way the review status does, via content hash
+  — not a separate lookup that could point at the wrong line.
 - Exclusions never silently survive a change to the code they were meant to
   exempt. Edit a line you'd marked as human-written/excluded, and it goes
   back into the audit pool.

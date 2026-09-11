@@ -1,9 +1,9 @@
 {
   "files": {
     "README.md": {
-      "countable_total": 103,
+      "countable_total": 124,
       "excluded": {},
-      "line_count": 137,
+      "line_count": 163,
       "notes": {},
       "reviewed": {}
     },
@@ -29,9 +29,9 @@
       "reviewed": {}
     },
     "src/codeaudit/cli.py": {
-      "countable_total": 768,
+      "countable_total": 844,
       "excluded": {},
-      "line_count": 952,
+      "line_count": 1038,
       "notes": {},
       "reviewed": {}
     }
@@ -41,6 +41,6 @@
     "coverage_pct": 0.0,
     "excluded": 0,
     "reviewed": 0,
-    "total": 909
+    "total": 1006
   }
 }
