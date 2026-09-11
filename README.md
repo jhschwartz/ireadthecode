@@ -1,7 +1,7 @@
 # codeaudit
 
 <!-- codeaudit:badge:start -->
-![audit coverage](https://img.shields.io/badge/audit%20coverage-0%25-red)
+![audit coverage](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhschwartz%2Faicodereview%2Fmain%2F.codeaudit.json&query=%24.summary.coverage_pct&suffix=%25&label=audit%20coverage&color=red)
 <!-- codeaudit:badge:end -->
 
 > **AI-generated code, under human review.** This codebase was written by
