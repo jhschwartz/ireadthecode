@@ -29,7 +29,7 @@ Not yet published to PyPI. For now:
 pip install -e .
 ```
 
-(Once published: `pip install codeaudit`.)
+(Once published: `pip install aicodeaudit`.)
 
 Either gives you the `codeaudit` command; `python -m codeaudit` also works.
 
