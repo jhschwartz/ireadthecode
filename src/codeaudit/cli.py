@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 codeaudit.py — lightweight, dependency-free code review coverage tracker.
 
@@ -874,7 +873,3 @@ def build_parser():
 def main(argv=None):
     args = build_parser().parse_args(argv)
     args.func(args)
-
-
-if __name__ == "__main__":
-    main()
