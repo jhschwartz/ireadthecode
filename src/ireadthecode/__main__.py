@@ -1,4 +1,4 @@
-from codeaudit.cli import main
+from ireadthecode.cli import main
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,883 @@
+{
+  "files": {
+    "README.md": {
+      "countable_total": 124,
+      "excluded": {},
+      "line_count": 163,
+      "notes": {},
+      "reviewed": {
+        "10": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "495567ea59b09e9b"
+        },
+        "100": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "a3f5058297b0f7ec"
+        },
+        "101": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "21e7356d92660e84"
+        },
+        "102": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f1b4c3d6c2ba0970"
+        },
+        "103": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "104": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "23cc6fb74f200dd3"
+        },
+        "106": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "520f652dd446cc33"
+        },
+        "107": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "a5050ba815aec256"
+        },
+        "108": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "109": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f63a7389fc1859a6"
+        },
+        "11": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "5dbf69ec81c1698b"
+        },
+        "110": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "42f9de19c23f2526"
+        },
+        "111": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "76fdc0366f287f46"
+        },
+        "112": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ff5ab6ab02e7df21"
+        },
+        "113": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "114": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "683e31c04e97a3b8"
+        },
+        "115": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "116": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ad332335cfaa348c"
+        },
+        "12": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "8247f5e1548074d8"
+        },
+        "120": {
+          "at": "2026-09-12T21:15:59+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f1b901847390b0ed"
+        },
+        "121": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "122": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "b40a9cc210e3a90d"
+        },
+        "123": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "aa3c04f47332024a"
+        },
+        "124": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "75ad5e7712a141d0"
+        },
+        "125": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e2d5bd6eafde66c8"
+        },
+        "126": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "127": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "9a8ed1323f802263"
+        },
+        "128": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "a78dcde99d5e3cc5"
+        },
+        "13": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "4731b47251a4331e"
+        },
+        "130": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "327bbd6f5dc5c459"
+        },
+        "131": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "1c04dd06df06edab"
+        },
+        "132": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e311389ddab3e15b"
+        },
+        "133": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "134": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "337ff86f6ede8601"
+        },
+        "135": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "136": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e8c623d0fcbed2c4"
+        },
+        "137": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "dd71bd5051ad3181"
+        },
+        "138": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "b0ca6253e210433c"
+        },
+        "139": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "7ce2d19efed1d472"
+        },
+        "14": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "140": {
+          "at": "2026-09-12T21:16:00+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "141": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "583407e5dcd96749"
+        },
+        "142": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ccff5b6f596e092d"
+        },
+        "143": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "144": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "831b1b84b7eb032e"
+        },
+        "145": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "d3f83dea84d674e1"
+        },
+        "146": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "0236a6d5f918b560"
+        },
+        "147": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e5de908453dfa686"
+        },
+        "148": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e2ac2d91b99d8af3"
+        },
+        "149": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "9e5df139ca137d47"
+        },
+        "15": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "7265831b8354eb9e"
+        },
+        "150": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "0db1e52ac357f574"
+        },
+        "151": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "dc774adccb8b34e9"
+        },
+        "152": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "0c96a0dc385bb647"
+        },
+        "153": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "dd2a0025c607d4d2"
+        },
+        "154": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "6f08097cf5bec052"
+        },
+        "155": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ab9e2015a24ba41f"
+        },
+        "156": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "157": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "089ebb0fa8ac6622"
+        },
+        "158": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "d9a5b0477b8d1052"
+        },
+        "159": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "16": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f0c2b63f29c463fd"
+        },
+        "160": {
+          "at": "2026-09-12T21:16:01+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "6c549a56db01e021"
+        },
+        "161": {
+          "at": "2026-09-12T21:16:02+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "162": {
+          "at": "2026-09-12T21:16:02+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "647785cc823b03b0"
+        },
+        "163": {
+          "at": "2026-09-12T21:16:02+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "17": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "56a62d290729f035"
+        },
+        "18": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "19": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "7076ddd27dd76d52"
+        },
+        "2": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "20": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "21": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "a17922ad51fa751a"
+        },
+        "24": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "7f042b7e2524c0a3"
+        },
+        "25": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "37305c6be3254eff"
+        },
+        "26": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "27": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "98304b8243bd9f26"
+        },
+        "28": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "29": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "441b19fae9ec893e"
+        },
+        "30": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "31": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ad332335cfaa348c"
+        },
+        "32": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "92755120ac2c5387"
+        },
+        "33": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f1b901847390b0ed"
+        },
+        "34": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "36": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "38": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "39": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "63bfd61a0561b255"
+        },
+        "40": {
+          "at": "2026-09-12T21:15:46+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "41": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "0df201fcf7d966cd"
+        },
+        "42": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "43": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ad332335cfaa348c"
+        },
+        "52": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f1b901847390b0ed"
+        },
+        "53": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "54": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ab6291fc068a3592"
+        },
+        "55": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "1f68959aa7cd0ba9"
+        },
+        "56": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "57": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "269f99b7b1524fca"
+        },
+        "58": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "59": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "068adb832d434dfa"
+        },
+        "6": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "60": {
+          "at": "2026-09-12T21:15:52+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "c1652f06982d53b4"
+        },
+        "61": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "62": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ad332335cfaa348c"
+        },
+        "65": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "68": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "7": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "33de6fffa3978164"
+        },
+        "70": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "96996fffa54766a5"
+        },
+        "71": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "704c30a5292ad7aa"
+        },
+        "72": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "36cce3baf87cbaab"
+        },
+        "73": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f26f5baa10b9595d"
+        },
+        "74": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "005ea6cdde2d35b9"
+        },
+        "75": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "aa3951ea9f13f93f"
+        },
+        "76": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f1b901847390b0ed"
+        },
+        "77": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "78": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "7c090015129904a7"
+        },
+        "79": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "80": {
+          "at": "2026-09-12T21:15:55+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ad332335cfaa348c"
+        },
+        "84": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f1b901847390b0ed"
+        },
+        "85": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "86": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "935471f6cb65df92"
+        },
+        "87": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "88": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "add2cdb05e452f29"
+        },
+        "89": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "4199ba454d6d3ae8"
+        },
+        "9": {
+          "at": "2026-09-12T21:15:43+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "29d2a1d6bd06eacd"
+        },
+        "90": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "b29b42ae7b8497d9"
+        },
+        "91": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "9c7200cde7d59ffe"
+        },
+        "92": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "7a7474070d3c22ff"
+        },
+        "93": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "7126e01953c3f254"
+        },
+        "94": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "ec26b926baace4ea"
+        },
+        "95": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "a3d518a7645ee78d"
+        },
+        "96": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "990191a382bbce43"
+        },
+        "97": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "98": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "986e1ec25e8c70fd"
+        },
+        "99": {
+          "at": "2026-09-12T21:15:58+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        }
+      }
+    },
+    "pyproject.toml": {
+      "countable_total": 33,
+      "excluded": {},
+      "line_count": 37,
+      "notes": {},
+      "reviewed": {
+        "1": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "3a50118c463dfeaf"
+        },
+        "10": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "923824209506ccfe"
+        },
+        "11": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "fcd009a52e59149b"
+        },
+        "12": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "6ace93762eac4e01"
+        },
+        "13": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "110dca1e5abc5c4e"
+        },
+        "14": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "cfae0d4248f7142f"
+        },
+        "15": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "a7e643b2073a659e"
+        },
+        "16": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "d2e2b9f6f10f931b"
+        },
+        "17": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "9390f6813d1b8d68"
+        },
+        "18": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "2a97140de7e66f1b"
+        },
+        "19": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "663422aa6c24ce5f"
+        },
+        "2": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "45436cf959495d77"
+        },
+        "20": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "644933d46b6d5f3c"
+        },
+        "21": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "c35a1477d2def8a5"
+        },
+        "22": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "cf46c14dda6d140f"
+        },
+        "23": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e04a55b9a9a1bc35"
+        },
+        "24": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "277fa666e18fb277"
+        },
+        "25": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "aad0ef0f65893b72"
+        },
+        "26": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "964aae5dce36730c"
+        },
+        "27": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "9444d247b88393f7"
+        },
+        "28": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "dec05e4d57ef6140"
+        },
+        "29": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "de80ac98941a8d8b"
+        },
+        "3": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "2332dbd1a019e48d"
+        },
+        "30": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "cfae0d4248f7142f"
+        },
+        "31": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "32": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "11923c6d7780da3f"
+        },
+        "34": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "35": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "36e9566b5d72f7e9"
+        },
+        "37": {
+          "at": "2026-09-12T21:16:28+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "4": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "e3b0c44298fc1c14"
+        },
+        "5": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "9db496674d490e55"
+        },
+        "7": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "49f226131898615b"
+        },
+        "8": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "f8b9ebaa501a93ae"
+        },
+        "9": {
+          "at": "2026-09-12T21:16:22+00:00",
+          "by": "Jacob Schwartz <jaschwa@umich.edu>",
+          "hash": "72c22b6c12c1c2ba"
+        }
+      }
+    },
+    "src/ireadthecode/__init__.py": {
+      "countable_total": 2,
+      "excluded": {},
+      "line_count": 4,
+      "notes": {},
+      "reviewed": {}
+    },
+    "src/ireadthecode/__main__.py": {
+      "countable_total": 3,
+      "excluded": {},
+      "line_count": 5,
+      "notes": {},
+      "reviewed": {}
+    },
+    "src/ireadthecode/cli.py": {
+      "countable_total": 844,
+      "excluded": {},
+      "line_count": 1038,
+      "notes": {},
+      "reviewed": {}
+    }
+  },
+  "root": "/Users/jakeumms/aicodeaudit",
+  "summary": {
+    "coverage_pct": 12.33,
+    "excluded": 0,
+    "reviewed": 124,
+    "total": 1006
+  }
+}

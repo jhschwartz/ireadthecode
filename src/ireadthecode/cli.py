@@ -1,5 +1,5 @@
 """
-codeaudit.py — lightweight, dependency-free code review coverage tracker.
+ireadthecode — lightweight, dependency-free code review coverage tracker (CLI: readcode).
 
 Purpose
 -------
@@ -7,28 +7,28 @@ Track "has a human actually read this line?" across a whole codebase, so you
 can honestly claim you reviewed 100% of an AI-generated project rather than
 skimming a few files. Inspired by (but much simpler than) auditview.
 
-State lives in a single JSON file, .codeaudit.json, at the repo root. Nothing
+State lives in a single JSON file, .readcode.json, at the repo root. Nothing
 is sent anywhere. Safe to .gitignore or commit, your choice.
 
 Core workflow
 -------------
-  python3 codeaudit.py init                 # scan repo, seed manifest
-  python3 codeaudit.py status               # overall + per-file coverage
-  python3 codeaudit.py next                 # suggest the biggest unreviewed file
-  python3 codeaudit.py show path/to/file.py # print file with review markers
-  python3 codeaudit.py mark path/to/file.py 10 40   # mark lines 10-40 reviewed
-  python3 codeaudit.py unmark path/to/file.py 10 40
-  python3 codeaudit.py note path/to/file.py 22 "double-check this SQL"
+  readcode init                 # scan repo, seed manifest
+  readcode status               # overall + per-file coverage
+  readcode next                 # suggest the biggest unreviewed file
+  readcode show path/to/file.py # print file with review markers
+  readcode mark path/to/file.py 10 40   # mark lines 10-40 reviewed
+  readcode unmark path/to/file.py 10 40
+  readcode note path/to/file.py 22 "double-check this SQL"
 
 Excluding human-written code from the audit
 --------------------------------------------
-  python3 codeaudit.py exclude-file path/to/hand_written.py
-  python3 codeaudit.py include-file path/to/hand_written.py   # undo
+  readcode exclude-file path/to/hand_written.py
+  readcode include-file path/to/hand_written.py   # undo
 
-  python3 codeaudit.py exclude path/to/file.py 40 60          # manual line range
-  python3 codeaudit.py include path/to/file.py 40 60          # undo
+  readcode exclude path/to/file.py 40 60          # manual line range
+  readcode include path/to/file.py 40 60          # undo
 
-  python3 codeaudit.py exclude-block path/to/file.py 47       # Python-only heuristic:
+  readcode exclude-block path/to/file.py 47       # Python-only heuristic:
                                                                 # finds the enclosing
                                                                 # def/class around line 47
                                                                 # and excludes the whole
@@ -43,10 +43,10 @@ Reviewer attribution (for teams)
 ---------------------------------
 `mark` and `review` record who reviewed each line, alongside its content
 hash:
-  python3 codeaudit.py mark path/to/file.py 10 40 --reviewer "Jane Doe <jane@x.com>"
-  python3 codeaudit.py review --reviewer "Jane Doe <jane@x.com>"
+  readcode mark path/to/file.py 10 40 --reviewer "Jane Doe <jane@x.com>"
+  readcode review --reviewer "Jane Doe <jane@x.com>"
 
-Identity resolves, in order: --reviewer flag, CODEAUDIT_REVIEWER env var,
+Identity resolves, in order: --reviewer flag, READCODE_REVIEWER env var,
 `git config user.name`/`user.email`, then $USER/$USERNAME. Attribution
 lives inside the same mark as the content hash, so it migrates with the
 mark under reconciliation instead of a separate line-keyed table that
@@ -54,9 +54,9 @@ could point at the wrong line after unrelated edits shift things around.
 
 Stepwise interactive review
 ----------------------------
-  python3 codeaudit.py review                     # walk every file, chunk by chunk
-  python3 codeaudit.py review --file app.py        # just one file
-  python3 codeaudit.py review --chunk-size 15      # lines per chunk (default 20)
+  readcode review                     # walk every file, chunk by chunk
+  readcode review --file app.py        # just one file
+  readcode review --chunk-size 15      # lines per chunk (default 20)
 
   At each chunk:
     <Enter> or r        mark the whole chunk reviewed, move on
@@ -69,8 +69,8 @@ Stepwise interactive review
 
 README badge
 ------------
-  python3 codeaudit.py badge                          # print a markdown badge line
-  python3 codeaudit.py badge --update-readme README.md  # insert/update it in place
+  readcode badge                          # print a markdown badge line
+  readcode badge --update-readme README.md  # insert/update it in place
 
 Safety model
 ------------
@@ -94,7 +94,7 @@ import sys
 from datetime import datetime, timezone
 from urllib.parse import quote
 
-MANIFEST_NAME = ".codeaudit.json"
+MANIFEST_NAME = ".readcode.json"
 
 DEFAULT_IGNORE_DIRS = {
     ".git", "__pycache__", "node_modules", ".venv", "venv", "env",
@@ -126,8 +126,8 @@ LINE_COMMENT_PREFIXES = {
 
 PY_HEADER_RE = re.compile(r"^(\s*)(def |class |async def )")
 
-BADGE_START = "<!-- codeaudit:badge:start -->"
-BADGE_END = "<!-- codeaudit:badge:end -->"
+BADGE_START = "<!-- readcode:badge:start -->"
+BADGE_END = "<!-- readcode:badge:end -->"
 
 
 # ---------------------------------------------------------------- hashing --
@@ -375,7 +375,7 @@ def _overall_stats(manifest):
     """Aggregate _audit_stats() across every tracked file. Used to stamp a
     top-level "summary" object into the saved manifest, so external tools
     (e.g. a shields.io dynamic badge) can read overall coverage straight out
-    of .codeaudit.json without re-deriving it."""
+    of .readcode.json without re-deriving it."""
     total = reviewed = excluded = 0
     for entry in manifest.get("files", {}).values():
         a, r, e = _audit_stats(entry)
@@ -521,12 +521,12 @@ def _git_identity(root):
 
 
 def _resolve_reviewer(root, args):
-    """Reviewer identity for a mark: --reviewer flag > CODEAUDIT_REVIEWER env
+    """Reviewer identity for a mark: --reviewer flag > READCODE_REVIEWER env
     var > git config (user.name/email) > $USER/$USERNAME > 'unknown'."""
     explicit = getattr(args, "reviewer", None)
     if explicit:
         return explicit
-    env = os.environ.get("CODEAUDIT_REVIEWER")
+    env = os.environ.get("READCODE_REVIEWER")
     if env:
         return env
     identity = _git_identity(root)
@@ -787,7 +787,7 @@ def cmd_badge(args):
 
     if args.update_readme:
         _update_readme_badge(args.update_readme, badge_line)
-        mode = "dynamic (reads .codeaudit.json live from GitHub)" if args.dynamic else "static"
+        mode = "dynamic (reads .readcode.json live from GitHub)" if args.dynamic else "static"
         print(f"Updated {mode} badge in {args.update_readme}: {round(pct)}% ({color}).")
     else:
         print(badge_line)
@@ -956,8 +956,8 @@ def cmd_review(args):
 # ------------------------------------------------------------------- cli --
 
 def build_parser():
-    p = argparse.ArgumentParser(description="Lightweight code review coverage tracker.")
-    p.add_argument("--db", metavar="ROOT", help="repo root (default: search upward for .codeaudit.json)")
+    p = argparse.ArgumentParser(prog="readcode", description="Lightweight code review coverage tracker.")
+    p.add_argument("--db", metavar="ROOT", help="repo root (default: search upward for .readcode.json)")
     sub = p.add_subparsers(dest="command", required=True)
 
     s = sub.add_parser("init", help="scan repo and create/update the manifest")
@@ -1015,7 +1015,7 @@ def build_parser():
     s.add_argument("--label", default="audit coverage")
     s.add_argument("--update-readme", metavar="README_PATH")
     s.add_argument("--dynamic", action="store_true",
-                    help="reference .codeaudit.json live via a shields.io dynamic JSON "
+                    help="reference .readcode.json live via a shields.io dynamic JSON "
                          "badge instead of baking the percentage into the URL (requires "
                          "a GitHub 'origin' remote; the percentage stays live on every "
                          "page load, the color reflects the value at generation time)")

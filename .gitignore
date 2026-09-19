@@ -29,5 +29,5 @@ htmlcov/
 # OS
 .DS_Store
 
-# NOTE: .codeaudit.json is intentionally NOT ignored — it's the audit
+# NOTE: .readcode.json is intentionally NOT ignored — it's the audit
 # trail itself and is meant to be visible and committed.

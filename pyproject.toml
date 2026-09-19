@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "aicodeaudit"
+name = "ireadthecode"
 version = "0.0.1"
 description = "A lightweight, dependency-free code review coverage tracker — mark what's actually been read, exclude human-written code, track coverage toward 100%."
 readme = "README.md"
@@ -30,7 +30,7 @@ classifiers = [
 ]
 
 [project.scripts]
-codeaudit = "codeaudit.cli:main"
+readcode = "ireadthecode.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/codeaudit"]
+packages = ["src/ireadthecode"]
